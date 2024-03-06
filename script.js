@@ -1,20 +1,47 @@
-const taskInput = document.getElementById("taskInput");
-const addBtn = document.getElementById("addBtn");
-const sortBtn = document.getElementById("sortBtn");
-const delBtn = document.getElementById("delBtn");
+
+
+
+
+
 
 function addTask() {
-  const task = taskInput.value.trim(); 
-  if (task !== "") {
-    const newTaskElement = document.createElement("h3");
-    const container = document.querySelector("#taskList");
-
-    newTaskElement.innerHTML = task;
-    container.appendChild(newTaskElement);
-    taskInput.value = "";
+  var taskInput = document.getElementById("taskInput").value;
+  if (taskInput === "") {
+      alert("Please enter a task!");
+      return;
   }
+
+  var taskList = document.getElementById("taskList");
+
+  // Create elements
+  var taskItem = document.createElement("div");
+  var taskText = document.createElement("span");
+  var deleteBtn = document.createElement("button");
+  
+  // Assign classes and text
+  taskItem.className = "task-item";
+  taskText.textContent = taskInput;
+  deleteBtn.textContent = "DELETE";
+  deleteBtn.className = "btn btn-danger";
+  
+  // Event listener for delete button
+  deleteBtn.addEventListener("click", function() {
+    taskList.removeChild(taskItem);
+  });
+  
+  // Append elements
+    taskItem.appendChild(taskText);
+  taskItem.appendChild(deleteBtn);
+  taskList.appendChild(taskItem);
+  
+  // Clear input field
+  document.getElementById("taskInput").value = "";
 }
-addBtn.addEventListener("click", addTask);
+
+// Add event listener for the ADD button
+document.getElementById("addBtn").addEventListener("click", addTask);
+
+
 
 function sort() {
   const taskListContainer = document.getElementById("taskList");
